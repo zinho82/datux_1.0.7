@@ -1,26 +1,26 @@
 <?php
 class DB_mysql {
-/* variables de conexión */
+/* variables de conexiï¿½n */
 var $BaseDatos;
 var $Servidor;
 var $Usuario;
 var $Clave;
-/* identificador de conexión y consulta */
+/* identificador de conexiï¿½n y consulta */
 var $Conexion_ID = 0;
 var $Consulta_ID = 0;
-/* número de error y texto error */
+/* nï¿½mero de error y texto error */
 var $Errno = 0;
 var $Error = "";
-/* Método Constructor: Cada vez que creemos una variable
-de esta clase, se ejecutará esta función */
-function DB_mysql($bd = "asterisk", $host = "localhost", $user = "root", $pass = "") 
+/* Mï¿½todo Constructor: Cada vez que creemos una variable
+de esta clase, se ejecutarï¿½ esta funciï¿½n */
+function DB_mysql($bd = "asterisk", $host = "localhost", $user = "root", $pass = "zinho1982") 
 {
 $this->BaseDatos = $bd;
 $this->Servidor = $host;
 $this->Usuario = $user;
 $this->Clave = $pass;
 }
-/*Conexión a la base de datos*/
+/*Conexiï¿½n a la base de datos*/
 function conectar(){
 if ($bd != "") $this->BaseDatos = $bd;
 if ($host != "") $this->Servidor = $host;
@@ -31,7 +31,7 @@ $this->Conexion_ID = mysql_connect($this->Servidor, $this->Usuario, $this->Clave
  
 if (!$this->Conexion_ID) 
 {
-$this->Error = "Ha fallado la conexión.";
+$this->Error = "Ha fallado la conexiï¿½n.";
 echo $this->Error;
 return 0;
 }
@@ -42,8 +42,8 @@ $this->Error = "Imposible abrir ".$this->BaseDatos ;
 echo $this->Error;
 return 0;
 }
-/* Si hemos tenido éxito conectando devuelve 
-el identificador de la conexión, sino devuelve 0 */
+/* Si hemos tenido ï¿½xito conectando devuelve 
+el identificador de la conexiï¿½n, sino devuelve 0 */
 return $this->Conexion_ID;
 }
 
@@ -66,8 +66,8 @@ $this->Error = mysql_error();
 echo $this->Errno;
 echo $this->Error;
 }
-/* Si hemos tenido éxito en la consulta devuelve 
-el identificador de la conexión, sino devuelve 0 */
+/* Si hemos tenido ï¿½xito en la consulta devuelve 
+el identificador de la conexiï¿½n, sino devuelve 0 */
 return $this->Consulta_ID;
 }
 
