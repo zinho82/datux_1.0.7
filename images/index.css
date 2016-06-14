@@ -1,0 +1,24 @@
+
+.tcat
+{
+	background: #80A9EA url(http://localhost/login/images/tablebg.gif) repeat-x top left;
+    COLOR: #FFFFFF;
+	FONT: 12px Verdana, Tahoma;
+}
+.tborder
+{
+	background-color: #FFFFFF;
+	color: #000000;
+	border: 1px solid #6393DF;
+}
+.smalltext
+{
+    FONT-SIZE: 11px;
+    COLOR: #333333;
+    FONT-FAMILY: Verdana, Arial, Helvetica;
+}
+
+.swiftfieldset { margin-bottom: 6px; color: #267DDC; BORDER: 1px SOLID #CCCCCC; -moz-border-radius: 4px 4px 4px 4px; padding: 4px}
+.swiftfieldset, .swiftfieldset td, .swiftfieldset p, .swiftfieldset li { FONT: 11px Verdana, Tahoma; }
+
+

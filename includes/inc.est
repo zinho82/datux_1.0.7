@@ -1,0 +1,62 @@
+
+
+<style type="text/css">
+<!--
+.logo_slogan { color:#555555; font-size:11px; font-family:Arial; font-weight:bold;}
+.leftbar_title { color:#222222; font-size:11px; font-family:Arial; font-weight:bold;}
+.main_title { color:#555555; font-size:13px; font-family:verdana; font-weight:bold;}
+.main_pie{ color:#555555; font-size:12px; font-family:arial; font-weight:bold;}
+.sub_title { color:#555555; font-size:11px; font-family:verdana; font-weight:bold;}
+.main_Text { color:#222222; font-size:12px; font-family:verdana; font-weight:normal;}
+.main_Text_B { color:#FFFFFF; font-size:12px; font-family:verdana; font-weight:normal;}
+.main_Text_C { color:#222222; font-size:10px; font-family:verdana; font-weight:normal;}
+.main_Text_m { color:#FFFFFF; font-size:10px; font-family:verdana; font-weight:normal;}
+
+A:link	{ text-decoration:none; color: #333333; font-weight: plain }
+A:visited { text-decoration:none; color: #333333; font-style: plain; font-weight: plain  }
+A:active  { text-decoration:none; color: #333333; font-style: palin; font-weight: plain }
+A:hover   { text-decoration:underline; color: #000000; font-weight: plain; font-style: plain; }
+A:font   { font-face:Arial }
+.main_td { border: 1px solid #BBAA99;  padding: .3em;	font-size: 0.9em; color: #666;}
+
+ 
+div tr:hover td, 
+div tr:focus td 
+ 
+{
+	background: url("imagenes/shimx.gif")  repeat-x top left;
+	color: #000;
+}
+
+tr.odd
+{
+background: url("imagenes/shim.gif")  repeat-x top left;
+}	
+
+.nota {
+	background: #FFFFCC url(imagenes/notawarning.png) no-repeat;
+	border: solid 1px #CCCCCC;
+	font-style: italic;
+	font-size: 12px;
+	margin-bottom: 10px;
+	margin-left: 15px;
+	margin-top: 10px;
+	padding: 3px 3px 3px 44px;
+	width: 60%;
+} 
+
+.ficha {
+	background: #FFFFCC  no-repeat;
+	border: solid 1px #CCCCCC;
+	font-style: italic;
+	font-size: 12px;
+	margin-bottom: 10px;
+	margin-left: 15px;
+	margin-top: 10px;
+	padding: 3px 3px 3px 44px;
+	width: 450;
+ 
+} 
+-->
+</style>
+
