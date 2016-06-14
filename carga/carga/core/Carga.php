@@ -217,7 +217,7 @@ tmp.campana='tstcampana'
     public function Reparar_fonos($area, $fono, $tabla, $base, $fcom) {
         $conn = new Conexion();
         #Arreglando formato fonos 
-     echo   $sql = "update " . $base . ".$tabla  
+        $sql = "update " . $base . ".$tabla  
 set
 $fcom=
 case 
@@ -372,5 +372,9 @@ select tmp.numero_de_carga,'$tbl',count(*),'$numfono fonos No Reparables','" . d
 select tmp.numero_de_carga,'$tabla',count(*),'$nomfono fonos Reparados formato','" . date('Y-m-d G:i:s') . "' from $base.$tabla tmp where tmp.$campo=1";
         mysql_query($sql, $conn->conectar_db($base)) or die(mysql_error());
     }
-
+ public function RegistrosExiste($campana) {
+        $conn=new Conexion();
+         $sql="update sistema_temporal_abcdin tmp inner join sistema_deudor de on concat(de.rut,'-',de.dv)=tmp.dmssnum and de.campaign_id='$campana' set tmp.estado=1  ";
+        mysql_query($sql,$conn->conectar_db("asterisk"));
+    }
 }

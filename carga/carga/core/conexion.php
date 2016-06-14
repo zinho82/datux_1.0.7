@@ -2,7 +2,7 @@
 
 class Conexion {
     function conectar_db($db){
-        $conn=mysql_connect("localhost","root","") or die(mysql_error().' '.  mysql_errno());
+        $conn=mysql_connect("localhost","root","zinho1982") or die(mysql_error().' '.  mysql_errno());
 	if (! $conn){
          	echo "<h2 align='center'>ERROR: 1 Imposible establecer conecci&oacute;n con el servidor de BD</h2>";
 	} 
