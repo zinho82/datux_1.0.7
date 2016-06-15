@@ -373,4 +373,10 @@ select tmp.numero_de_carga,'$tabla',count(*),'$nomfono fonos Reparados formato',
         mysql_query($sql, $conn->conectar_db($base)) or die(mysql_error());
     }
 
+    public function RegistrosExiste($campana) {
+        $conn=new Conexion();
+         $sql="update sistema_temporal_abcdin tmp inner join sistema_deudor de on concat(de.rut,'-',de.dv)=tmp.dmssnum and de.campaign_id='$campana' set tmp.estado=1  ";
+        mysql_query($sql,$conn->conectar_db("asterisk"));
+    }
+
 }
