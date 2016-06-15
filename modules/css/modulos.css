@@ -1,0 +1,23 @@
+* {
+  margin: 0 auto; }
+
+body {
+  background-image: url("http://sistema.dev/modules/images/fondo.png");
+  background-size: 100%; }
+
+.tcat {
+  background: #80A9EA url(http://localhost/login/images/tablebg.gif) repeat-x top left;
+  COLOR: #FFFFFF;
+  FONT: 12px Verdana, Tahoma; }
+
+.tborder {
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 2px solid #D8D8D8; }
+
+.cabecera {
+  background-color: #FAAC58;
+  color: #000000;
+  border: 2px solid #D8D8D8; }
+
+/*# sourceMappingURL=modulos.css.map */
