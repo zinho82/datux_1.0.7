@@ -217,7 +217,7 @@ tmp.campana='tstcampana'
     public function Reparar_fonos($area, $fono, $tabla, $base, $fcom) {
         $conn = new Conexion();
         #Arreglando formato fonos 
-     echo   $sql = "update " . $base . ".$tabla  
+        $sql = "update " . $base . ".$tabla  
 set
 $fcom=
 case 
@@ -262,7 +262,7 @@ end    ";
     public function Reparar_fonos_1campo($fono, $tabla, $base, $fcom) {
         $conn = new Conexion();
         #Arreglando formato fonos 
-        $sql = "update " . $base . ".$tabla  
+         $sql = "update " . $base . ".$tabla  
 set
 $fcom=
 case 
@@ -279,7 +279,11 @@ when length($fono)=6 and substring($fono,1,1) between 7 and 9  then 1
 else null
 end,
 $fono=
-case 
+case  
+when length($fono)=10 and substring($fono,1,3)=562 then concat(2,substring($fono,-8))
+when length($fono)=10 and substring($fono,1,3)=569 then concat(9,substring($fono,-8)) 
+when length($fono)=10 and substring($fono,1,4) between 5630 and 5673 then concat(substring($fono,3,2),2,substring($fono,-6)) 
+when length($fono)=10 and substring($fono,1,4) > 5673 then concat(9,substring($fono,-8)) 
 when length($fono)=6 and substring($fono,1,1)=2 then concat(222,$fono)
 when length($fono)=6 and substring($fono,1,1)=9 then concat(999,$fono)
 when length($fono)=6 and substring($fono,1,2) between 30 and 69 then concat(substring($fono,1,2),222,substring($fono,-4))
@@ -378,5 +382,5 @@ select tmp.numero_de_carga,'$tabla',count(*),'$nomfono fonos Reparados formato',
          $sql="update sistema_temporal_abcdin tmp inner join sistema_deudor de on concat(de.rut,'-',de.dv)=tmp.dmssnum and de.campaign_id='$campana' set tmp.estado=1  ";
         mysql_query($sql,$conn->conectar_db("asterisk"));
     }
-
+ 
 }
