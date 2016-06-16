@@ -1,4 +1,4 @@
-MAIL="soporte@datux.cl"
+MAIL="erick.leal@datux.cl"
 USUARIOBD="-uroot"
 PWDBD="" 
 BASE_DATOS="asterisk";
@@ -9,17 +9,10 @@ FECHA_ARCH=$(date +"%y%m%d")
 cd /var/www/html/sistema_gestion/archivos
 
 echo "**************** Descargando Archivo de Cobranza desde ABC-DIN **********"
-
 HOST='ftp.din.cl'
-USER='usrcasnov'
-PASSWD='*nova2014.,'
-
-
-#HOST='ftp.mkyc.cl'
-#USER='abcdin@mkyc.cl'
-#PASSWD='46824682'
-
-lftp -du $USER,$PASSWD $HOST  -e "get  ABCDIN_C_TARJ194_${FECHA_ARCH}.txt ;bye"
+USER='usrsilca'
+PASSWD='*S100l20c'
+lftp -du $USER,$PASSWD $HOST  -e "get  ABCDIN_C_TARJ108_${FECHA_ARCH}.txt ;bye"
 
 echo "archivos DEscargados"
 
@@ -27,7 +20,7 @@ echo "*************** INICIANDO CARGA ***********************"
 rm -rf /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_*_${FECHA}.csv
 rm -rf /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_resultado*${FECHA}.csv
 
-cp /var/www/html/sistema_gestion/archivos/ABCDIN_C_TARJ194_${FECHA_ARCH}.txt /var/www/html/sistema_gestion/archivos/${TBL_TEMPORAL}.txt -v
+cp /var/www/html/sistema_gestion/archivos/ABCDIN_C_TARJ108_${FECHA_ARCH}.txt /var/www/html/sistema_gestion/archivos/${TBL_TEMPORAL}.txt -v
 echo " Limpiando Tabla Temporal "
 mysql ${USUARIOBD} ${PWDBD} -e "truncate ${BASE_DATOS}.${TBL_TEMPORAL}"
 
@@ -312,15 +305,6 @@ cd /root
 
 echo "*************ENVIANDO ARCHIVO DE CARGA************************"
 echo "CARGA ABCDIN" | mutt $MAIL -s "FORMATOS CARGA ABCDIN COBRANZA" -a /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_${FECHA}.tar 
-echo "ENVIAR POR FTP"
-
-HOST='ftp.mkyc.cl'
-USER='abcdin@mkyc.cl'
-PASSWD='46824682'
-FILE='test.txt'
-
-lftp -du $USER,$PASSWD $HOST  -e "put /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_${FECHA}.tar ;bye"
-
 
 echo "********** CARGA FINALIZADA **************"
 

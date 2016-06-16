@@ -16,8 +16,9 @@ ENCLOSED BY ''
 LINES TERMINATED BY '\n'"
 
 echo "CARGANDO DEUDA"
-mysql ${USUARIOBD} ${PWDBD} -e "select  substring(tmp.dmssnum,1,length(tmp.dmssnum)-2) as rut,substring(tmp.dmssnum,-1)as dv,'','','' as tipodoc,'' as edeuda,'' as cuotasven,concat(substring(tmp.u6vencumo,-4),'-',substring(tmp.u6vencumo,4,2),'-',substring(tmp.u6vencumo,1,2)) as fecven,concat(substring(tmp.dmassagdt,-4),'-',substring(tmp.dmassagdt,4,2),'-',substring(tmp.dmassagdt,1,2)) as fecasig,'' as feccoloca
-,tmp.u6deuvenc,tmp.u6totdeud,'' as abono,'' as fecabono,tmp.u6deuvenc,tmp.dmcurbal,'' as cotaspa,'' as fecatuali,'' as cartera,tmp.u6trammor,tmp.u6moncumo,'' as salcuo,'' as provcredi,'' as codprod,'' as of1,'' as of2,'' as ad1,'' as ad2,''as ad3,'' as ad4,'' as ad5,'' ascodcedente from ${BASE_DATOS}.${TBL_TEMPORAL} tmp 
+mysql ${USUARIOBD} ${PWDBD} -e "select  substring(tmp.dmssnum,1,length(tmp.dmssnum-2)) as rut,substring(tmp.dmssnum,-1)as dv,concat('K=',tmp.u6conptint,'% I=',tmp.u6conptcuo)  as nro_doc,'' as tot_cuotas,tmp.u6gastcob as tipodoc,'' as edeuda,'' as cuotasven,concat(substring(tmp.u6vencumo,-4),'-',substring(tmp.u6vencumo,4,2),'-',substring(tmp.u6vencumo,1,2)) as fecven,concat(substring(tmp.dmassagdt,-4),'-',substring(tmp.dmassagdt,4,2),'-',substring(tmp.dmassagdt,1,2)) as fecasig,'' as feccoloca
+,tmp.u6deuvenc as monto,tmp.u6totdeud as deuda_total,'' as abono,'' as fecabono,tmp.u6deuvenc as deuda_morosa,tmp.dmpayamt as cuotaspa,concat(substring(tmp.dmpaydt,-4),'-',substring(tmp.dmpaydt,3,2),'-',substring(tmp.dmpaydt,1,2)) as fecatuali,'' as cartera,tmp.u6trammor as tramo,tmp.u6moncumo as val_cuota,'' as sald_cuo,'' as provcredi,'' as dias_mora,tmp.u6deuvenc as codprod,tmp.u6intxmora as of1,round((tmp.u6deuvenc+ tmp.u6tdeuxven+tmp.u6carxtrve+ tmp.u6carxtrxv)) as of2,tmp.dmppdue as ad1,tmp.dmresv1 as ad2,tmp.u6tdeuxven as ad3,
+round(((tmp.u6deuvenc+ tmp.u6tdeuxven)*(tmp.u6conptint/100))+((tmp.u6carxtrve+ tmp.u6carxtrxv)*(tmp.u6conptgas/100))+((tmp.u6otrcarv+ tmp.u6carxven)*(tmp.u6conptgas/100))+(tmp.u6gastcob*(tmp.u6conptotr/100))+(tmp.u6intxmora*(tmp.u6conptcar/100))) as ad4, round((tmp.u6deuvenc+ tmp.u6tdeuxven+tmp.u6carxtrve+ tmp.u6carxtrxv)*(tmp.u6conrepie/100)) as ad5,'' as codcedente   from ${BASE_DATOS}.${TBL_TEMPORAL} tmp 
 INTO OUTFILE '/var/www/html/sistema_gestion/archivos/cargar/ABCDIN_act_deuda_${FECHA}.csv'
 FIELDS TERMINATED BY ';'
 ENCLOSED BY ''
@@ -28,6 +29,7 @@ echo "**************CARGANDO FORMA DE CONTACTO***************"
 
 mysql ${USUARIOBD} ${PWDBD} -e "
 select replace(substring(tmp.dmssnum,1,length(tmp.dmssnum)-2),'.','') as rut,substring(tmp.dmssnum,-1) as dv,tmp.dmaddr1,'' as num,tmp.dmaddr2,tmp.dmcity,'',tmp.fono1,tmp.fono2,tmp.fono3,tmp.fono4,tmp.fono5
+
 from ${BASE_DATOS}.${TBL_TEMPORAL} tmp 
 INTO OUTFILE '/var/www/html/sistema_gestion/archivos/cargar/ABCDIN_act_UBICABILIDAD_${FECHA}.csv'
 FIELDS TERMINATED BY ';'

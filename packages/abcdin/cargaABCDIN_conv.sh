@@ -1,23 +1,16 @@
-MAIL="reportesmkc@datux.cl"
+#MAIL="reportessilca@datux.cl"
 USUARIOBD="-uroot"
 PWDBD="" 
 BASE_DATOS="asterisk";
 TBL_TEMPORAL="sistema_temporal_abcdin"; 
 FECHA=$(date +"%Y%m%d");
 FECHA_ARCH="$(date +"%y%m%d")"
-
-#HOST='ftp.din.cl'
-#USER='usrsilca'
-#PASSWD='*S100l20c'
-
 HOST='ftp.din.cl'
-USER='usrcasnov'
-PASSWD='*nova2014.,'
-
-
+USER='usrsilca'
+PASSWD='*S100l20c'
 FILE='test.txt'
 cd /var/www/html/sistema_gestion/archivos/
-lftp -du $USER,$PASSWD $HOST  -e "get ABCDIN_C_CONV096_${FECHA_ARCH}.txt ;bye"
+lftp -du $USER,$PASSWD $HOST  -e "get ABCDIN_C_CONV123_${FECHA_ARCH}.txt ;bye"
 
 
 
@@ -26,9 +19,7 @@ echo "*************** INICIANDO CARGA ***********************"
 rm -rf /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_*_${FECHA}.csv
 rm -rf /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_resultado*${FECHA}.csv
 
-#cp /var/www/html/sistema_gestion/archivos/ABCDIN_C_CONV096_${FECHA_ARCH}.txt /var/www/html/sistema_gestion/archivos/${TBL_TEMPORAL}.txt -v
-cp /var/www/html/sistema_gestion/archivos/ABCDIN_C_CONV096_160603.txt /var/www/html/sistema_gestion/archivos/${TBL_TEMPORAL}.txt -v
-
+cp /var/www/html/sistema_gestion/archivos/ABCDIN_C_CONV123_${FECHA_ARCH}.txt /var/www/html/sistema_gestion/archivos/${TBL_TEMPORAL}.txt -v
 echo " Limpiando Tabla Temporal "
 mysql ${USUARIOBD} ${PWDBD} -e "truncate ${BASE_DATOS}.${TBL_TEMPORAL}"
 
@@ -178,7 +169,7 @@ tmp.dmssnum=trim(substring(tmp.dmacct,26,12))
 ,tmp.u6catelotr8=trim(substring(tmp.dmacct,1586,10))
 ,tmp.u6catelotr9=trim(substring(tmp.dmacct,1596,10))
 ,tmp.conconv=trim(substring(tmp.dmacct,1215,3))
-,tmp.u6monconv=trim(substring(tmp.dmacct,853,9))
+,tmp.u6monconv=trim(substring(tmp.dmacct,883,9))
 ,tmp.u6fecconv=trim(substring(tmp.dmacct,862,10))
 ,tmp.u6fpvconv=trim(substring(tmp.dmacct,872,10))
 ,tmp.u6ncconv=trim(substring(tmp.dmacct,882,3))
@@ -291,6 +282,7 @@ end
 
 "
 
+
 echo "CARGANDO DEUDOR"
 mysql ${USUARIOBD} ${PWDBD} -e "select  substring(tmp.dmssnum,1,length(tmp.dmssnum)-2) as rut,substring(tmp.dmssnum,-1)as dv,tmp.dmname,'','',tmp.dmacct,'','','','','' from ${BASE_DATOS}.${TBL_TEMPORAL} tmp 
 INTO OUTFILE '/var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_deudores_conv_${FECHA}.csv'
@@ -301,9 +293,10 @@ LINES TERMINATED BY '\n'"
 
 
 echo "CARGANDO DEUDA"
-mysql ${USUARIOBD} ${PWDBD} -e "	select  substring(tmp.dmssnum,1,length(tmp.dmssnum)-2) as rut,substring(tmp.dmssnum,-1)as dv,''  as nro_doc,'' as tot_cuotas,tmp.u6gastcob as tipodoc,'' as edeuda,'' as cuotasven,concat(substring(tmp.u6vencumo,-4),'-',substring(tmp.u6vencumo,4,2),'-',substring(tmp.u6vencumo,1,2)) as fecven,concat(substring(tmp.dmassagdt,-4),'-',substring(tmp.dmassagdt,4,2),'-',substring(tmp.dmassagdt,1,2)) as fecasig,'' as feccoloca
-        ,tmp.u6deuvenc as monto,tmp.u6totdeud as deuda_total,tmp.u6saldoconv as abono,'' as fecabono,tmp.u6deuvenc as deuda_morosa,tmp.dmpayamt as cuotaspa,concat(substring(tmp.dmpaydt,-4),'-',substring(tmp.dmpaydt,3,2),'-',substring(tmp.dmpaydt,1,2)) as fecatuali,tmp.u6ncconv as cartera,tmp.u6trammor as tramo,tmp.u6ncconv as val_cuota,tmp.u6totpagconv as sald_cuo,tmp.u6fecconv as provcredi,tmp.u6dmdaysconv as dias_mora,tmp.u6cc1moncuo as codprod,tmp.u6cc1fvcto as of1,tmp.u6cc2moncuo as of2,tmp.u6cc2fvcto as ad1,tmp.u6cc3moncuo as ad2,tmp.u6cc3fvcto as ad3,
-        tmp.dmppamt as ad4,tmp.u6totdeud as ad5,'' as codcedente
+mysql ${USUARIOBD} ${PWDBD} -e "select  substring(tmp.dmssnum,1,length(tmp.dmssnum-2)) as rut,substring(tmp.dmssnum,-1)as dv,concat('K=',tmp.u6conptint,'% I=',tmp.u6conptcuo)  as nro_doc,'' as tot_cuotas,tmp.u6gastcob as tipodoc,'' as edeuda,'' as cuotasven,concat(substring(tmp.u6vencumo,-4),'-',substring(tmp.u6vencumo,4,2),'-',substring(tmp.u6vencumo,1,2)) as fecven,concat(substring(tmp.dmassagdt,-4),'-',substring(tmp.dmassagdt,4,2),'-',substring(tmp.dmassagdt,1,2)) as fecasig,'' as feccoloca
+,tmp.u6deuvenc as monto,tmp.u6totdeud as deuda_total,'' as abono,'' as fecabono,tmp.u6deuvenc as deuda_morosa,tmp.dmpayamt as cuotaspa,concat(substring(tmp.dmpaydt,-4),'-',substring(tmp.dmpaydt,3,2),'-',substring(tmp.dmpaydt,1,2)) as fecatuali,'' as cartera,tmp.u6trammor as tramo,tmp.u6moncumo as val_cuota,'' as sald_cuo,'' as provcredi,'' as dias_mora,tmp.u6deuvenc as codprod,tmp.u6intxmora as of1,round((tmp.u6deuvenc+ tmp.u6tdeuxven+tmp.u6carxtrve+ tmp.u6carxtrxv)) as of2,tmp.dmppdue as ad1,tmp.dmresv1 as ad2,tmp.u6tdeuxven as ad3,
+round(((tmp.u6deuvenc+ tmp.u6tdeuxven)*(tmp.u6conptint/100))+((tmp.u6carxtrve+ tmp.u6carxtrxv)*(tmp.u6conptgas/100))+((tmp.u6otrcarv+ tmp.u6carxven)*(tmp.u6conptgas/100))+(tmp.u6gastcob*(tmp.u6conptotr/100))+(tmp.u6intxmora*(tmp.u6conptcar/100))) as ad4, round((tmp.u6deuvenc+ tmp.u6tdeuxven+tmp.u6carxtrve+ tmp.u6carxtrxv)*(tmp.u6conrepie/100)) as ad5,'' as codcedente
+
  from ${BASE_DATOS}.${TBL_TEMPORAL} tmp 
 INTO OUTFILE '/var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_deuda_conv_${FECHA}.csv'
 FIELDS TERMINATED BY ';'
@@ -326,14 +319,6 @@ tar  cvf ABCDIN_carga_*_conv_${FECHA}.tar ABCDIN_carga_*_conv*${FECHA}.csv
 cd /root
 echo "*************ENVIANDO ARCHIVO DE CARGA************************"
 echo "CARGA ABCDIN" | mutt $MAIL -s "FORMATOS CARGA ABCDIN COBRANZA" -a /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_*_conv*${FECHA}.tar 
-
-HOST='ftp.mkyc.cl'
-USER='abcdin@mkyc.cl'
-PASSWD='46824682'
-FILE='test.txt'
-
-lftp -du $USER,$PASSWD $HOST  -e "put /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_*_conv*${FECHA}.tar ;bye"
-
 echo "********** CARGA FINALIZADA **************"
 
 echo "*************** ENVIANDO ARCHIVO RESULTADO DE LA CARGA****************"
@@ -358,9 +343,4 @@ tar cvf ABCDIN_resultado_${FECHA}.tar ABCDIN_resultado*${FECHA}.csv
 
 echo "RESULTADO CARGA ABCDIN" | mutt $MAIL -s "RESULTADO CARGA ABCDIN CONVENIOS" -a /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_resultado_${FECHA}.tar
 
-HOST='ftp.mkyc.cl'
-USER='abcdin@mkyc.cl'
-PASSWD='46824682'
-FILE='test.txt'
 
-lftp -du $USER,$PASSWD $HOST  -e "put /var/www/html/sistema_gestion/archivos/cargar/ABCDIN_carga_*_conv*${FECHA}.tar ;bye"

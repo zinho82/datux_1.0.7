@@ -1,12 +1,10 @@
 MAIL="erick.leal@datux.cl"
 USUARIOBD="-uroot"
-PWDBD=""
+PWDBD="-pzinho1982"
 BASE_DATOS="asterisk";
 TBL_TEMPORAL="sistema_temporal_pagos";
 FECHA=$(date +"%Y%m%d");
 FECHA_ARCH=$(date +"%y%m%d")
-#FECHA_ARCH='2016-06-13'
-
 
 cd /var/www/html/sistema_gestion/archivos
 
@@ -20,8 +18,7 @@ lftp -du $USER,$PASSWD $HOST  -e "get  ABCDIN_C_PAGO123_${FECHA_ARCH}.txt ;bye"
 
 echo "archivos DEscargado"
 
-#cp /var/www/html/sistema_gestion/archivos/pagos/ABCDIN_C_PAGO123_${FECHA_ARCH}.txt /var/www/html/sistema_gestion/archivos/pagos/${TBL_TEMPORAL}.txt -v
-cp /var/www/html/sistema_gestion/archivos/pagos/ABCDIN_C_PAGO123_160604.txt /var/www/html/sistema_gestion/archivos/pagos/${TBL_TEMPORAL}.txt -v
+cp /var/www/html/sistema_gestion/archivos/pagos/ABCDIN_C_PAGO216_${FECHA_ARCH}.txt /var/www/html/sistema_gestion/archivos/pagos/${TBL_TEMPORAL}.txt -v
 echo " Limpiando Tabla Temporal "
 mysql ${USUARIOBD} ${PWDBD} -e "truncate ${BASE_DATOS}.${TBL_TEMPORAL}"
 
@@ -53,4 +50,4 @@ select concat( substring(pa.fecha2,-4),'-',substring(pa.fecha2,4,2),'-',substrin
 ,de.rut,de.dv,de.campaign_id,deu.fec_venc
 from  ${BASE_DATOS}.sistema_temporal_pagos pa
 inner join  ${BASE_DATOS}.sistema_deudor de on de.rut_rep_legal=pa.cuenta
-inner join ${BASE_DATOS}.sistema_deuda deu on deu.rut=de.rut and deu.campaign_id like 'ABCC%'"
+inner join ${BASE_DATOS}.sistema_deuda deu on deu.rut=de.rut"
