@@ -144,7 +144,7 @@ while ($row_arbol = mysql_fetch_array($result_arbol)) {
             <td width='180'><font face="verdana,arial" size=2 >Telefono:   <b><?php echo $_GET['dialed_number']; ?></b> </td> 
 
             <td width='200'><font face="verdana,arial" size=2 >Rut Cliente: <b><?php echo $_GET['vendor_id']; ?></b> </td>
-            <td width='200'><font face="verdana,arial" size=2>Campa�a: <font face="verdana,arial" size=3 color='RED' ><b><?php echo $_GET['campaign']; ?></b></td>
+            <td width='200'><font face="verdana,arial" size=2>Campaña: <font face="verdana,arial" size=3 color='RED' ><b><?php echo $_GET['campaign']; ?></b></td>
             <td width='150'><font face="verdana,arial" size=2 >Registro <b><?php echo $id_datos; ?></b></td>
             <td width='150'><font face="verdana,arial" size=2 >Lista <b><?php echo $_GET['list_id']; ?></b></td>
 
@@ -483,6 +483,88 @@ if ($cedente == 'ABCDIN') {
         </fieldset>
 
     <?php
+    }
+}
+if ($cedente == 'HITES') {
+
+    if ($subcategoria != 'CONVENIOS') {
+        ?>
+        <fieldset class='field'>
+            <legend ><font face="verdana,arial" size=1><b> DEUDA CLIENTE HITES NORMAL</b></font></legend>
+            <?php
+            $result = $connect->consulta("SELECT * from sistema_gestiones  where rut_cliente = '$_GET[vendor_id]' order by fecha desc");
+            $cant_gestion = mysql_num_rows($result);
+            $result = $connect->consulta("SELECT fecha from sistema_gestiones where rut_cliente = '$_GET[vendor_id]' order by fecha desc limit 1");
+            while ($row = mysql_fetch_array($result)) {
+                $ult_gestion = $row["fecha"];
+            }
+            ?>
+
+            <table border='1' width='850' cellspacing='1' cellpadding='1' style="border-top-color:WHITE; border-top-width:1px;border-top-style:solid;border-left-color:WHITE; border-left-width:1px;border-left-style:solid;border-collapse: collapse;">
+
+                <tr  background='../images/ui-bg_gloss-wave_55_5c9ccc_500x100.png' height='16'>
+
+
+                    <td width='145'><font face="verdana,arial" size=1>DEUDA VENCIDA</td>
+                    <td width='145'><font face="verdana,arial" size=1>1º VENCIMIENTO</td>
+                    <td width='145'><font face="verdana,arial" size=1 >Nº REPACTACIONES</td>
+                    <td width='135'><font face="verdana,arial" size=1 >TRAMO</td>
+                    <td width='185'><font face="verdana,arial" size=1 >DEUDA CONTABLE</td>
+                    <!--<td width='145'><font face="verdana,arial" size=1 >OFERTA DIN</td>
+                    <td width='145'><font face="verdana,arial" size=1 >PIE CONVENIO</td>
+                    <td width='185'><font face="verdana,arial" size=1 >PAGO TOTAL DESC.</td>-->
+
+                </tr>
+                <tr  bgcolor="white" onMouseover="this.style.backgroundColor = '#DDF'" onMouseout="this.style.backgroundColor = 'white'">
+
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo number_format($deuda_morosa, 0); ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $tipo_doc; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $nro_doc; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $tramo; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo number_format($monto,0); ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <!--<td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $nro_doc; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo number_format($adicional5, 0); ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $adicional4; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>-->
+                    </td>
+            </table>
+
+            <table border='1' width='750' cellspacing='1' cellpadding='1' style="border-top-color:WHITE; border-top-width:1px;border-top-style:solid;border-left-color:WHITE; border-left-width:1px;border-left-style:solid;border-collapse: collapse;">
+
+                <tr  background='../images/ui-bg_gloss-wave_55_5c9ccc_500x100.png' height='16'>
+
+
+                    <td width='145'><font face="verdana,arial" size=1 >FECH ULT PAGO</td>
+                    <td width='145'><font face="verdana,arial" size=1 >ULT PAGO</td>
+                    <td width='145'><font face="verdana,arial" size=1 >GESTIONES</td>
+                    <td width='170'><font face="verdana,arial" size=1 >FECHA COMP. PAGO</td>
+                    <td width='145'><font face="verdana,arial" size=1 >$ ULT COMPRO</td>
+                    <td width='165'><font face="verdana,arial" size=1 >FECHA ULT GESTION</td>
+                    <td width='145'><font face="verdana,arial" size=1 >DEU X VENCER</td>
+
+                </tr>
+                <tr  bgcolor="white" onMouseover="this.style.backgroundColor = '#DDF'" onMouseout="this.style.backgroundColor = 'white'">
+
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $fecha_actualizacion; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo number_format($cuotas_pagadas, 0); ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $cant_gestion; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $adicional1; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $adicional2; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php echo $ult_gestion; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+                    <td height="19"><font face="verdana,arial" color='white'  ><input type='text' value='<?php $adicional3; ?>' style="width:100%"  name='nom_rep_legal'    class='tb10' onKeypress="return solo_numeros(event);"  onBlur="validar1(this.form)" ></td>
+
+
+
+
+
+                    </td>
+            </table>
+
+
+
+            <br>
+        </fieldset>
+
+        <?php
     }
 }
 

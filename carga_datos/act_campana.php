@@ -96,14 +96,21 @@ include_once("../includes/class/class_mysql_inc.php");
                 <table border="0" cellspacing="0" align="center" width="95%">
                     <tr><td background="imagenes/sesion.gif">
                    
-                            <center>
                                    <?php
+                                   if(strpos($_GET[campaign_id], "ABCC")!==FALSE){
                                   $act=  shell_exec("/usr/local/bin/scripts/abcdin/carga_ACTUALIZA_ABCDIN.sh");
                                   echo $act;
                                   $carga->RegistrosExiste($campaign_id);
                                   $act=  shell_exec("/usr/local/bin/scripts/abcdin/actualiza2p_ABCDIN.sh");
                                   echo $act;
-                                  
+                                   }
+                                   if(strpos($_GET[campaign_id], "ABCI")!==FALSE){
+                                  $act=  shell_exec("/usr/local/bin/scripts/abcdin/carga_ACTUALIZA_ABCDIN_COB.sh");
+                                  echo $act;
+                                  $carga->RegistrosExiste($campaign_id);
+                                  $act=  shell_exec("/usr/local/bin/scripts/abcdin/actualiza2p_ABCDIN_COB.sh");
+                                  echo $act;
+                                   }
                                    ?>
                                 <br><b>  Archivos</b><br/>
                              <?php if(is_file("/var/www/html/sistema_gestion/archivos/cargar/ABCDIN_act_deuda_".date('Ymd').".csv")):?>
@@ -125,7 +132,6 @@ include_once("../includes/class/class_mysql_inc.php");
                              <?php                                endif;?>
                              <br>
                                 </tD></tr>
-
                                 </table>	
 
                                 </fieldset>

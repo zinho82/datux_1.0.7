@@ -30,7 +30,6 @@
 
 
 fieldset {
-//border: 1px solid #CCA383;
 border: outset gray 3px;   
 width: 850;
 background: #dfedf3;

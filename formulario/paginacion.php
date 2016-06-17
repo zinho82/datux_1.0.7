@@ -46,7 +46,6 @@ $result = $connect->consulta("SELECT * from gestiones_tricot");
 
 
 fieldset {
-//border: 1px solid #CCA383;
 border: outset gray 3px;   
 width: 1024;
 background: #dfedf3;

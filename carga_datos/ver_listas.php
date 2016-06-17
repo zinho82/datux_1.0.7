@@ -109,6 +109,8 @@ include_once("../includes/class/class_mysql_inc.php");
                 <td width="150"  bgcolor="DADAd5"><font class="main_text_c"><center>NOMBRES DEUDORES</center></td>
             <td width="150"  bgcolor="DADAd5"><font class="main_text_c"><center>INFORMACION DEUDA</center></td>
             <td width="150"  bgcolor="DADAd5"><font class="main_text_c"><center>ACTUALIZAR BD</center></td>
+    <td width="150"  bgcolor="DADAd5"><font class="main_text_c"><center>CARGAR BD</center></td>
+    
             </tr>
             <tr onMouseover="this.style.backgroundColor = '#81BEF7'" onMouseout="this.style.backgroundColor = '#CEE3F6'" bgcolor='#CEE3F6'>
                 <td width="150" align="center">
@@ -120,8 +122,30 @@ include_once("../includes/class/class_mysql_inc.php");
                         <img src="../images/Crystal_Clear_app_kontact.png" width='45' height='10'></button>
                 </td>
                 <td width="150" align="center">
+                    
+                    
+                  <?php if(strpos($campaign_id, "ABCC")!==FALSE):?>
+
+                    
                     <button type="button"   onClick="top.frames['mainFrame'].location.href = 'act_campana.php?list_id=<?php echo $row["list_id"]; ?>&campaign_id=<?php echo $campaign_id; ?>&cod_cedente=<?php echo $cod_cedente; ?>'"> <font class="main_text">ACTUALIZAR</font><br>
                         <img src="../images/Crystal_Clear_app_kontact.png" width='45' height='10'></button>
+                    <?php                            endif;?>
+                     <?php if(strpos($campaign_id, "ABCI")!==FALSE):?>
+
+                    
+                    <button type="button"   onClick="top.frames['mainFrame'].location.href = 'act_campana.php?list_id=<?php echo $row["list_id"]; ?>&campaign_id=<?php echo $campaign_id; ?>&cod_cedente=<?php echo $cod_cedente; ?>'"> <font class="main_text">ACTUALIZAR</font><br>
+                        <img src="../images/Crystal_Clear_app_kontact.png" width='45' height='10'></button>
+                    <?php                            endif;?>
+                </td>
+                 <td width="150" align="center">
+                    
+                    
+                  <?php if(strpos($campaign_id, "HIT")!==FALSE):?>
+
+                    
+                    <button type="button"   onClick="top.frames['mainFrame'].location.href = 'subir_campana.php?list_id=<?php echo $row["list_id"]; ?>&campaign_id=<?php echo $campaign_id; ?>&cod_cedente=<?php echo $cod_cedente; ?>'"> <font class="main_text">CARGAR</font><br>
+                        <img src="../images/Crystal_Clear_app_kontact.png" width='45' height='10'></button>
+                    <?php                            endif;?>
                 </td>
 
             </tr>

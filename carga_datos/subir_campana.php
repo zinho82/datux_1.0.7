@@ -84,7 +84,7 @@ include_once("../includes/class/class_mysql_inc.php");
 
  <table border="0" cellspacing="0" align="center" width="95%">
  <tr><td>
-<center> <FONT CLASS="main_text"><b>Agregar Registros a la lista (DEUDAS)<?php echo $list_id; ?>, Campaña: <?php echo $_GET[campaign_id]; ?>
+<center> <FONT CLASS="main_text"><b>Agregar Base datos (Poblamiento)<?php echo $list_id; ?>, Campaña: <?php echo $_GET[campaign_id]; ?>
 		</td></tr>
 		</table>
 	<br>
@@ -93,9 +93,10 @@ include_once("../includes/class/class_mysql_inc.php");
 <center> <FONT CLASS="main_text"><b>Importar desde planilla CVS 
 		</td></tr>
 		<tr><td>
-		<center><br><font class="main_text_c">Seleccione su archivo CSV<br><br> 
-<form enctype="multipart/form-data" method="post" action="importar_deuda.php" name="uploadform">
-				<input type="file" name="file1">
+		<center><br><font class="main_text_c">Seleccione su archivo CSV<br><br>  
+                    <form enctype="multipart/form-data" method="post" action="importar_asignacion.php" name="uploadform">
+                        <label>Asignacion</label>  <input type="file" name="file1" placeholder=""><br>
+                         <label>Poblamiento</label>       <input type="file" name="file2" placeholder="Poblamiento">
 				<input type="hidden" name="list_id" value="<?php echo $list_id; ?>">
 				<input type="hidden" name="campaign_id" value="<?php echo $campaign_id; ?>">
 				<input type="hidden" name="cod_cedente" value="<?php echo $cod_cedente; ?>">
